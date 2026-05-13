@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Transactions — Austere Bank{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/banking.css' %}" rel="stylesheet"/>
+<div class="page-head">
+  <div><h1 class="page-title">Transaction History</h1><p class="page-subtitle">All account activity</p></div>
+  <div class="d-flex gap-2">
+    <a href="?" class="btn-sm-dark {% if not filter_type %}active{% endif %}">All</a>
+    <a href="?type=credit" class="btn-sm-dark {% if filter_type == 'credit' %}active{% endif %}"><i class="fas fa-arrow-down"></i> Credits</a>
+    <a href="?type=debit" class="btn-sm-dark {% if filter_type == 'debit' %}active{% endif %}"><i class="fas fa-arrow-up"></i> Debits</a>
+  </div>
+</div>
+
+<div class="summary-bar">
+  <div><div class="summary-item-label">Account</div><div class="summary-item-value">{{ account.account_number }}</div></div>
+  <div class="ms-auto"><div class="summary-item-label">Current Balance</div><div class="summary-item-value-large">₹{{ account.balance }}</div></div>
+</div>
+
+<div class="card-dark">
+  <table class="table-dark-custom">
+    <thead><tr><th>Date</th><th>Description</th><th>Reference</th><th>Type</th><th>Amount</th><th>Balance After</th></tr></thead>
+    <tbody>
+    {% for t in transactions %}
+    <tr>
+      <td class="txn-date-cell">{{ t.created_at|date:"d M Y" }}<br><span class="txn-time-sub">{{ t.created_at|time:"H:i" }}</span></td>
+      <td>{{ t.description }}</td>
+      <td class="txn-reference">{{ t.reference_number }}</td>
+      <td><span class="badge-custom badge-{{ t.transaction_type }}">{{ t.transaction_type|capfirst }}</span></td>
+      <td class="{% if t.transaction_type == 'credit' %}amount-credit{% else %}amount-debit{% endif %}">
+        {% if t.transaction_type == 'credit' %}+{% else %}–{% endif %}₹{{ t.amount }}
+      </td>
+      <td class="txn-balance">₹{{ t.balance_after }}</td>
+    </tr>
+    {% empty %}<tr><td colspan="6"><div class="empty-state" style="padding:3rem;"><i class="fas fa-receipt"></i><p>No transactions found.</p></div></td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Apply for Loan — Austere Bank{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/loans.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/auth.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/banking.css' %}" rel="stylesheet"/>
+<div class="page-head"><div><h1 class="page-title">Apply for Loan</h1><p class="page-subtitle">Choose a product and submit your application</p></div></div>
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="card-dark">
+      <div class="card-dark-header"><i class="fas fa-file-signature"></i>Loan Application</div>
+      <div class="card-dark-body">
+        <form method="post">{% csrf_token %}
+          <div class="row g-3">{% for field in form %}
+          <div class="col-md-6 {% if field.name == 'purpose' %}col-md-12{% endif %}">
+            <label class="form-label-custom">{{ field.label }}</label>
+            {{ field }}{% if field.errors %}<div class="field-error">{{ field.errors.0 }}</div>{% endif %}
+          </div>{% endfor %}</div>
+          <button type="submit" class="btn-primary btn-full-width mt-4"><i class="fas fa-paper-plane me-2"></i>Submit Application</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card-dark">
+      <div class="card-dark-header"><i class="fas fa-percent"></i>Interest Rates</div>
+      <div class="card-dark-body" style="padding:0;">
+        {% for loan_type, rate in rates.items %}
+        <div class="loan-rate-item">
+          <span class="loan-rate-label">{{ loan_type }} Loan</span>
+          <span class="loan-rate-value">{{ rate }}%</span>
+        </div>
+        {% endfor %}
+        <div class="loan-info-box">
+          <i class="fas fa-info-circle me-1"></i>Processing time: 2–3 business days.
+        </div>
+      </div>
+    </div>
+    <div class="card-dark mt-3 loan-cta-card">
+      <div class="loan-cta-title"><i class="fas fa-calculator me-2"></i>Calculate First</div>
+      <div class="loan-cta-text">Use our EMI calculator to plan your repayment before applying.</div>
+      <a href="{% url 'emi_calculator' %}" class="btn-outline-gold mt-2" style="font-size:0.8rem;padding:6px 14px;">Open Calculator</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

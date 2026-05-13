@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}My Loans — Austere Bank{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/loans.css' %}" rel="stylesheet"/>
+<div class="page-head">
+  <div><h1 class="page-title">My Loans</h1><p class="page-subtitle">All your loan applications</p></div>
+  <a href="{% url 'apply_loan' %}" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;"><i class="fas fa-plus"></i>Apply New</a>
+</div>
+<div class="row g-3">
+{% for loan in loans %}
+<div class="col-md-6">
+  <div class="card-dark loan-card-hover">
+    <div class="loan-card-header">
+      <div style="font-weight:600;">{{ loan.get_loan_type_display }}</div>
+      <span class="badge-custom badge-{{ loan.status }}">{{ loan.status|capfirst }}</span>
+    </div>
+    <div style="padding:1.25rem 1.5rem;">
+      <div class="loan-grid-stats">
+        <div class="loan-stat-box">
+          <div class="loan-emi-val">₹{{ loan.amount|floatformat:0 }}</div>
+          <div class="summary-item-label">Principal</div>
+        </div>
+        <div class="loan-stat-box">
+          <div class="loan-emi-val" style="color:var(--white);">{{ loan.tenure_months }}M</div>
+          <div class="summary-item-label">Tenure</div>
+        </div>
+        <div class="loan-stat-box">
+          <div class="loan-emi-val" style="color:#4ade80;">{{ loan.interest_rate }}%</div>
+          <div class="summary-item-label">Rate p.a.</div>
+        </div>
+      </div>
+      <div class="loan-summary-mini">
+        <div class="d-flex justify-content-between mb-1"><span class="summary-item-label">Monthly EMI</span><span class="fw-bold text-white">₹{{ loan.emi_amount }}</span></div>
+        <div class="d-flex justify-content-between"><span class="summary-item-label">Total Payable</span><span class="fw-bold text-white">₹{{ loan.total_payable }}</span></div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <small class="text-silver">Applied {{ loan.applied_at|date:"d M Y" }}</small>
+        <a href="{% url 'loan_detail' loan.pk %}" class="btn-sm-dark">View Details</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% empty %}
+<div class="col-12"><div class="card-dark"><div class="empty-state"><i class="fas fa-file-invoice-dollar"></i><p>No loan applications yet.</p><a href="{% url 'apply_loan' %}" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;"><i class="fas fa-plus"></i>Apply Now</a></div></div></div>
+{% endfor %}
+</div>
+{% endblock %}

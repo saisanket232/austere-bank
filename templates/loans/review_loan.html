@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Review Loan — Austere Bank{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1 class="page-title">Review Loan Application</h1><p class="page-subtitle">{{ loan.get_loan_type_display }}</p></div>
+  <a href="{% url 'all_loans' %}" class="btn-outline-gold"><i class="fas fa-arrow-left"></i> Back</a>
+</div>
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card-dark mb-3">
+      <div class="card-dark-header"><i class="fas fa-user"></i>Applicant Details</div>
+      <div class="card-dark-body">
+        <table style="width:100%;border-collapse:collapse;">
+          {% for k, v in info_rows %}
+          <tr style="border-bottom:1px solid var(--border-soft);">
+            <td style="padding:0.75rem 0;font-size:0.82rem;color:var(--silver);width:40%;">{{ k }}</td>
+            <td style="padding:0.75rem 0;font-weight:500;">{{ v }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
+      <div style="text-align:center;padding:1.25rem;background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-sm);">
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--gold);">₹{{ loan.amount }}</div>
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--silver);margin-top:4px;">Principal</div>
+      </div>
+      <div style="text-align:center;padding:1.25rem;background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-sm);">
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#4ade80;">₹{{ loan.emi_amount }}</div>
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--silver);margin-top:4px;">Monthly EMI</div>
+      </div>
+      <div style="text-align:center;padding:1.25rem;background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-sm);">
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--white);">₹{{ loan.total_payable }}</div>
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--silver);margin-top:4px;">Total Payable</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="card-dark">
+      <div class="card-dark-header"><i class="fas fa-gavel"></i>Decision</div>
+      <div class="card-dark-body">
+        <form method="post">{% csrf_token %}
+          {% for field in form %}
+          <div class="mb-3"><label class="form-label-custom">{{ field.label }}</label>
+          {{ field }}{% if field.errors %}<div style="color:#f87171;font-size:0.75rem;margin-top:4px;">{{ field.errors.0 }}</div>{% endif %}</div>
+          {% endfor %}
+          <div style="background:var(--gold-dim);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.85rem 1rem;margin-bottom:1rem;font-size:0.78rem;color:var(--silver);">
+            <i class="fas fa-info-circle me-1" style="color:var(--gold);"></i>Setting status to <strong style="color:var(--white);">Disbursed</strong> automatically credits the loan to the customer's account.
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;padding:13px;font-size:1rem;">Update Decision</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

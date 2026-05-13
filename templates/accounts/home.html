@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Austere Bank — Private Digital Banking{% endblock %}
+{% block content %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet"/>
+
+<div class="home-layout">
+  <!-- ── Home Sidebar ── -->
+  <aside class="home-sidebar">
+    <div class="sidebar-label">Navigate</div>
+    <div class="sidebar-section">
+      <a href="#hero" class="sidebar-link active"><i class="fas fa-home"></i>Home</a>
+      <a href="#features" class="sidebar-link"><i class="fas fa-cubes"></i>Features</a>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-label">Services</div>
+    <div class="sidebar-section">
+      <a href="{% url 'login' %}" class="sidebar-link"><i class="fas fa-exchange-alt"></i>Fund Transfer</a>
+      <a href="{% url 'login' %}" class="sidebar-link"><i class="fas fa-file-invoice-dollar"></i>Loans</a>
+      <a href="{% url 'login' %}" class="sidebar-link"><i class="fas fa-calculator"></i>EMI Calculator</a>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-label">Account</div>
+    <div class="sidebar-section">
+      <a href="{% url 'login' %}" class="sidebar-link"><i class="fas fa-sign-in-alt"></i>Sign In</a>
+      <a href="{% url 'register' %}" class="sidebar-link"><i class="fas fa-user-plus"></i>Open Account</a>
+    </div>
+
+    <div class="sidebar-cta">
+      <a href="{% url 'register' %}"><i class="fas fa-arrow-right" style="margin-right:6px;"></i>Get Started</a>
+    </div>
+  </aside>
+
+  <!-- ── Home Main Content ── -->
+  <div class="home-main">
+    <div class="hero-section" id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div style="position:relative;z-index:1;flex:1;">
+        <div class="eyebrow"><i class="fas fa-gem"></i> Private Digital Banking</div>
+        <h1 class="hero-title">Banking refined.<br>Wealth <span class="highlight">elevated.</span></h1>
+        <p class="hero-desc">Austere brings institutional-grade banking to your fingertips. Secure transfers, smart loans, and complete financial control — crafted with precision.</p>
+        <div class="hero-cta">
+          <a href="{% url 'register' %}" class="cta-primary"><i class="fas fa-arrow-right"></i> Open Account</a>
+          <a href="{% url 'login' %}" class="cta-secondary"><i class="fas fa-lock"></i> Sign In</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="hero-stat-val">3</div><div class="hero-stat-label">Account Roles</div></div>
+          <div><div class="hero-stat-val">5</div><div class="hero-stat-label">Loan Products</div></div>
+          <div><div class="hero-stat-val">256-bit</div><div class="hero-stat-label">Encryption</div></div>
+        </div>
+      </div>
+      <div class="hero-visual ms-5 d-none d-lg-block" style="position:relative;z-index:1;">
+        <div class="mock-card">
+          <div class="mock-card-logo">✦ Austere</div>
+          <div class="mock-chip"></div>
+          <div class="mock-num">4231  ••••  ••••  7890</div>
+          <div class="mock-balance-label">Available Balance</div>
+          <div class="mock-balance">₹1,25,000</div>
+          <div class="mock-txns">
+            <div class="mock-txn"><span class="mock-txn-name">Salary Credit</span><span class="mock-txn-amt">+₹50,000</span></div>
+            <div class="mock-txn"><span class="mock-txn-name">Fund Transfer</span><span class="mock-txn-amt neg">-₹12,000</span></div>
+            <div class="mock-txn"><span class="mock-txn-name">Loan EMI</span><span class="mock-txn-amt neg">-₹8,200</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-section" id="features">
+      <div class="section-label">Features</div>
+      <h2 class="section-title">Everything in one place</h2>
+      <div class="row g-4">
+        {% for icon, title, desc in features %}
+        <div class="col-md-4 col-sm-6">
+          <div class="feature-item">
+            <div class="feature-item-icon"><i class="fas {{ icon }}"></i></div>
+            <h6>{{ title }}</h6>
+            <p>{{ desc }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

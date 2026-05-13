@@ -1,0 +1,144 @@
+/* ── Loans ── */
+.loan-rate-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.loan-rate-label {
+  font-size: 0.875rem;
+  text-transform: capitalize;
+}
+
+.loan-rate-value {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.loan-info-box {
+  padding: 1rem 1.25rem;
+  font-size: 0.78rem;
+  color: var(--silver);
+}
+
+.loan-info-box i {
+  color: var(--gold);
+}
+
+.loan-cta-card {
+  background: var(--gold-dim) !important;
+  border-color: var(--border) !important;
+  padding: 1rem;
+}
+
+.loan-cta-title {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.loan-cta-text {
+  color: var(--silver);
+  font-size: 0.8rem;
+}
+
+.loan-emi-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.loan-stat-item {
+  text-align: center;
+  padding: 1rem;
+  border-right: 1px solid var(--border-soft);
+}
+
+.loan-stat-item:last-child {
+  border-right: none;
+}
+
+.loan-calc-result-header {
+  background: linear-gradient(135deg, #0d1528, #172040);
+  padding: 2rem;
+  border-radius: 14px 14px 0 0;
+  text-align: center;
+}
+
+.loan-calc-emi-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--silver);
+}
+
+.loan-calc-emi-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin: 0.5rem 0;
+}
+
+.loan-breakdown-bar {
+  height: 14px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+
+.loan-breakdown-legend {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.78rem;
+}
+
+.loan-breakdown-legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 5px;
+}
+
+.loan-card-hover {
+  transition: transform 0.2s;
+}
+
+.loan-card-hover:hover {
+  transform: translateY(-3px);
+}
+
+.loan-card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loan-grid-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.loan-stat-box {
+  text-align: center;
+}
+
+.loan-summary-mini {
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+

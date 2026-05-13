@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Profile — Austere Bank{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/profile.css' %}" rel="stylesheet"/>
+<div class="page-head"><div><h1 class="page-title">My Profile</h1><p class="page-subtitle">Manage your account information</p></div></div>
+<div class="row g-4">
+  <div class="col-lg-3">
+    <div class="card-dark profile-card-center">
+      <div style="padding:2rem 1.5rem;">
+        <div class="profile-avatar-large">{{ user.first_name.0|upper }}{{ user.last_name.0|upper }}</div>
+        <div class="profile-name">{{ user.get_full_name|default:user.username }}</div>
+        <div class="profile-role">{{ user.profile.role|capfirst }}</div>
+        <div class="profile-info-list">
+          <div class="profile-info-item"><i class="fas fa-envelope me-2"></i>{{ user.email }}</div>
+          <div class="profile-info-item"><i class="fas fa-phone me-2"></i>{{ user.profile.phone|default:'Not set' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card-dark">
+      <div class="card-dark-header"><i class="fas fa-pencil"></i>Update Profile</div>
+      <div class="card-dark-body">
+        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label-custom">First Name</label>{{ form.first_name }}</div>
+            <div class="col-md-6"><label class="form-label-custom">Last Name</label>{{ form.last_name }}</div>
+            <div class="col-md-6"><label class="form-label-custom">Email</label>{{ form.email }}</div>
+            <div class="col-md-6"><label class="form-label-custom">Phone</label>{{ form.phone }}</div>
+            <div class="col-md-6"><label class="form-label-custom">Date of Birth</label>{{ form.date_of_birth }}</div>
+            <div class="col-12"><label class="form-label-custom">Address</label>{{ form.address }}</div>
+          </div>
+          <button type="submit" class="btn-primary btn-save-profile mt-4"><i class="fas fa-save me-2"></i>Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

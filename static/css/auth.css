@@ -1,0 +1,166 @@
+/* ── Auth Pages ── */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--midnight);
+  padding: 2rem;
+  background-image: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.04) 0%, transparent 70%);
+}
+
+.auth-box {
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-box.wide {
+  max-width: 620px;
+}
+
+.auth-logo {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.auth-logo-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.auth-logo-icon i {
+  font-size: 1.4rem;
+  color: var(--midnight);
+}
+
+.auth-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.auth-sub {
+  color: var(--silver);
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  padding: 2.5rem;
+}
+
+.field-group {
+  margin-bottom: 1.25rem;
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--midnight);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.5rem;
+}
+
+.auth-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 25px rgba(201,168,76,0.3);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--silver);
+}
+
+.auth-footer a {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.field-error {
+  color: #f87171;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+.form-section-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  font-weight: 600;
+  margin: 1.5rem 0 1rem;
+  border-top: 1px solid var(--border-soft);
+  padding-top: 1.25rem;
+}
+
+/* ── OTP Specific ── */
+.otp-container {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.otp-box {
+  width: 100%;
+  max-width: 400px;
+}
+
+.otp-header {
+  padding: 2rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.otp-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.otp-icon i {
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+
+.otp-input {
+  text-align: center;
+  font-size: 1.8rem;
+  letter-spacing: 12px;
+  font-weight: 700;
+  padding: 1rem !important;
+  margin-bottom: 1rem;
+}
+
+.btn-verify {
+  width: 100%;
+  padding: 13px;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #4ade80, #22c55e) !important;
+  color: #0a0e1a !important;
+}

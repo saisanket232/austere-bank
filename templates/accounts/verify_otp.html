@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Enter OTP — Austere Bank{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/auth.css' %}" rel="stylesheet"/>
+<div class="otp-container">
+  <div class="otp-box">
+    <div class="card-dark">
+      <div class="otp-header">
+        <div class="otp-icon"><i class="fas fa-key"></i></div>
+        <div class="auth-title" style="font-size: 1.4rem;">Enter OTP</div>
+        <div class="auth-sub">Check the notification above for your OTP</div>
+      </div>
+      <div class="card-dark-body">
+        <form method="post">{% csrf_token %}
+          <label class="form-label-custom" style="text-align:center;display:block;margin-bottom:0.5rem;">6-digit code</label>
+          <input type="text" name="otp" class="form-control otp-input" maxlength="6" placeholder="• • • • • •" required>
+          <button type="submit" class="auth-btn btn-verify"><i class="fas fa-check me-2"></i>Verify</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+/* ── Profile Page ── */
+.profile-card-center {
+  text-align: center;
+}
+
+.profile-avatar-large {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.profile-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.profile-role {
+  color: var(--gold);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+.profile-info-list {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+.profile-info-item {
+  font-size: 0.78rem;
+  color: var(--silver);
+  margin-bottom: 4px;
+}
+
+.profile-info-item i {
+  color: var(--gold);
+  width: 20px;
+}
+
+.btn-save-profile {
+  padding: 11px 28px;
+}

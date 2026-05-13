@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Beneficiaries — Austere Bank{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/banking.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/auth.css' %}" rel="stylesheet"/>
+<div class="page-head"><div><h1 class="page-title">Beneficiaries</h1><p class="page-subtitle">Saved transfer accounts</p></div></div>
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="card-dark">
+      <div class="card-dark-header"><i class="fas fa-address-book"></i>Saved Beneficiaries</div>
+      <table class="table-dark-custom">
+        <thead><tr><th>Name</th><th>Account Number</th><th>Bank</th><th>IFSC</th><th></th></tr></thead>
+        <tbody>{% for b in beneficiaries %}
+        <tr>
+          <td><strong>{{ b.name }}</strong></td>
+          <td class="txn-reference" style="font-size:0.82rem;">{{ b.account_number }}</td>
+          <td style="color:var(--silver);">{{ b.bank_name }}</td>
+          <td class="txn-reference" style="font-size:0.78rem;">{{ b.ifsc_code }}</td>
+          <td><a href="{% url 'delete_beneficiary' b.pk %}" class="btn-danger-soft" onclick="return confirm('Remove beneficiary?')"><i class="fas fa-trash"></i></a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5"><div class="empty-state" style="padding:2.5rem;"><i class="fas fa-address-book"></i><p>No beneficiaries added yet.</p></div></td></tr>
+        {% endfor %}</tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card-dark">
+      <div class="card-dark-header"><i class="fas fa-plus"></i>Add Beneficiary</div>
+      <div class="card-dark-body">
+        <form method="post">{% csrf_token %}
+          {% for field in form %}
+          <div class="mb-3"><label class="form-label-custom">{{ field.label }}</label>
+          {{ field }}{% if field.errors %}<div class="field-error">{{ field.errors.0 }}</div>{% endif %}</div>
+          {% endfor %}
+          <button type="submit" class="btn-primary btn-full-width" style="padding:11px !important;"><i class="fas fa-plus me-2"></i>Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

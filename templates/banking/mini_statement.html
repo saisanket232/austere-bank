@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Mini Statement — Austere Bank{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/banking.css' %}" rel="stylesheet"/>
+<div class="page-head">
+  <div><h1 class="page-title">Mini Statement</h1><p class="page-subtitle">Last 10 transactions</p></div>
+  <a href="{% url 'transaction_history' %}" class="btn-outline-gold">Full History →</a>
+</div>
+<div style="max-width:600px;margin:0 auto;">
+  <div class="card-dark">
+    <div class="statement-header">
+      <div class="statement-brand">✦ Austere Bank</div>
+      <div style="color:var(--silver);font-size:0.75rem;">Account Statement</div>
+      <div class="d-flex justify-content-between align-items-end mt-4">
+        <div><div class="summary-item-label">Account</div><div class="summary-item-value">{{ account.account_number }}</div></div>
+        <div class="text-end"><div class="summary-item-label">Balance</div><div class="summary-item-value-large">₹{{ account.balance }}</div></div>
+      </div>
+    </div>
+    <table class="table-dark-custom">
+      <thead><tr><th>Date</th><th>Description</th><th class="text-end">Amount</th></tr></thead>
+      <tbody>{% for t in transactions %}
+      <tr>
+        <td class="txn-date-cell">{{ t.created_at|date:"d/m/y" }}</td>
+        <td style="font-size:0.82rem;">{{ t.description|truncatechars:40 }}</td>
+        <td class="text-end {% if t.transaction_type == 'credit' %}amount-credit{% else %}amount-debit{% endif %}">{% if t.transaction_type == 'credit' %}+{% else %}–{% endif %}{{ t.amount }}</td>
+      </tr>{% endfor %}</tbody>
+    </table>
+    <div class="statement-footer">
+      Generated on {% now "d M Y H:i" %} — Austere Bank
+    </div>
+  </div>
+</div>
+{% endblock %}

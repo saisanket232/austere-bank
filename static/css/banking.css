@@ -1,0 +1,194 @@
+/* ── Banking / Dashboard ── */
+.account-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.account-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.account-type-badge {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--silver);
+  background: rgba(255,255,255,0.06);
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+
+.dashboard-btn-group {
+  margin-top: 0.25rem;
+}
+
+.btn-transfer-quick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--midnight);
+  font-weight: 700;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.btn-transfer-quick:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(201,168,76,0.3);
+  color: var(--midnight);
+}
+
+.btn-history-quick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 1.25rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--silver);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.btn-history-quick:hover {
+  border-color: var(--border);
+  color: var(--white);
+}
+
+.stat-value-small {
+  font-size: 1.3rem !important;
+}
+
+.card-header-actions {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.txn-date-cell {
+  color: var(--silver);
+  font-size: 0.8rem;
+}
+
+.txn-time-sub {
+  font-size: 0.72rem;
+  opacity: 0.6;
+}
+
+.txn-reference {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--silver);
+}
+
+.txn-balance {
+  color: var(--silver);
+}
+
+.admin-actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.empty-state-check i {
+  color: #4ade80;
+  opacity: 1;
+}
+
+.customer-name-bold {
+  font-weight: 600;
+}
+
+.customer-email-sub {
+  color: var(--silver);
+}
+
+.btn-full-width {
+  width: 100%;
+  padding: 13px !important;
+  font-size: 1rem !important;
+}
+
+.security-box {
+  padding: 1rem;
+  font-size: 0.82rem;
+  color: var(--silver);
+}
+
+.security-box-title {
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.summary-bar {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+}
+
+.summary-item-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--silver);
+}
+
+.summary-item-value {
+  font-family: monospace;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.summary-item-value-large {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--gold);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.statement-header {
+  background: linear-gradient(135deg, #0d1528, #172040);
+  padding: 2rem;
+  border-radius: 14px 14px 0 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.statement-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 0.25rem;
+}
+
+.statement-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-soft);
+  font-size: 0.72rem;
+  color: var(--silver);
+  text-align: center;
+}
+
+
+

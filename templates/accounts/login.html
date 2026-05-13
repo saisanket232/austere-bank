@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Sign In — Austere Bank{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/auth.css' %}" rel="stylesheet"/>
+<div class="auth-page">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-logo-icon"><i class="fas fa-gem"></i></div>
+      <div class="auth-title">Welcome back</div>
+      <div class="auth-sub">Sign in to your Austere account</div>
+    </div>
+    <div class="auth-card">
+      <form method="post">{% csrf_token %}
+        {% for field in form %}
+        <div class="field-group">
+          <label class="form-label-custom">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<div class="field-error">{{ field.errors.0 }}</div>{% endif %}
+        </div>
+        {% endfor %}
+        <div class="field-error mb-2">{{ form.non_field_errors.0 }}</div>
+        <button type="submit" class="auth-btn">Sign In <i class="fas fa-arrow-right ms-1"></i></button>
+      </form>
+    </div>
+    <div class="auth-footer">Don't have an account? <a href="{% url 'register' %}">Open Account</a></div>
+  </div>
+</div>
+{% endblock %}

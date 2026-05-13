@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard — Austere Bank{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/banking.css' %}" rel="stylesheet"/>
+{% with role=user.profile.role %}
+
+{% if role == 'customer' %}
+<div class="page-head">
+  <div>
+    <h1 class="page-title">Good day, {{ user.first_name }} ✦</h1>
+    <p class="page-subtitle">Here's your financial overview</p>
+  </div>
+</div>
+
+{% if account %}
+<div class="row g-4 mb-4">
+  <!-- Account Card -->
+  <div class="col-lg-5">
+    <div class="account-card">
+      <div class="account-card-header">
+        <div class="account-brand">✦ Austere</div>
+        <span class="account-type-badge">{{ account.get_account_type_display }}</span>
+      </div>
+      <div class="account-card-chip"></div>
+      <div class="account-number">{{ account.account_number|slice:":4" }}  {{ account.account_number|slice:"4:8" }}  {{ account.account_number|slice:"8:12" }}</div>
+      <div class="account-balance-label">Available Balance</div>
+      <div class="account-balance">₹{{ account.balance }}</div>
+      <div class="account-meta">
+        <div class="account-meta-item">
+          <label>Account Holder</label>
+          <span>{{ user.get_full_name }}</span>
+        </div>
+        <div class="account-meta-item">
+          <label>Status</label>
+          <span class="badge-custom badge-{{ account.status }}">{{ account.status|upper }}</span>
+        </div>
+        <div class="account-meta-item">
+          <label>IFSC</label>
+          <span>{{ account.ifsc_code }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-1 dashboard-btn-group">
+      <div class="col-6">
+        <a href="{% url 'transfer' %}" class="btn-transfer-quick">
+          <i class="fas fa-arrow-right-arrow-left"></i> Transfer
+        </a>
+      </div>
+      <div class="col-6">
+        <a href="{% url 'transaction_history' %}" class="btn-history-quick">
+          <i class="fas fa-clock-rotate-left"></i> History
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right side -->
+  <div class="col-lg-7">
+    <div class="row g-3 mb-3">
+      <div class="col-4">
+        <div class="stat-card">
+          <div class="stat-icon gold"><i class="fas fa-wallet"></i></div>
+          <div class="stat-value stat-value-small">₹{{ account.balance }}</div>
+          <div class="stat-label">Total Balance</div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="stat-card green">
+          <div class="stat-icon green"><i class="fas fa-file-invoice-dollar"></i></div>
+          <div class="stat-value stat-value-small">{{ my_loans|length }}</div>
+          <div class="stat-label">Active Loans</div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="stat-card blue">
+          <div class="stat-icon blue"><i class="fas fa-arrow-trend-up"></i></div>
+          <div class="stat-value stat-value-small">{{ recent_txns|length }}</div>
+          <div class="stat-label">Transactions</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="card-dark mb-3">
+      <div class="card-dark-header"><i class="fas fa-bolt"></i>Quick Actions</div>
+      <div class="card-dark-body">
+        <div class="row g-3">
+          <div class="col-3"><a href="{% url 'apply_loan' %}" class="quick-action"><i class="fas fa-file-signature"></i>Apply Loan</a></div>
+          <div class="col-3"><a href="{% url 'mini_statement' %}" class="quick-action"><i class="fas fa-receipt"></i>Statement</a></div>
+          <div class="col-3"><a href="{% url 'emi_calculator' %}" class="quick-action"><i class="fas fa-calculator"></i>EMI Calc</a></div>
+          <div class="col-3"><a href="{% url 'beneficiaries' %}" class="quick-action"><i class="fas fa-address-book"></i>Beneficiaries</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Transactions -->
+<div class="card-dark">
+  <div class="card-dark-header">
+    <i class="fas fa-clock-rotate-left"></i>Recent Transactions
+    <a href="{% url 'transaction_history' %}" class="card-header-actions">View All →</a>
+  </div>
+  {% if recent_txns %}
+  <table class="table-dark-custom">
+    <thead><tr><th>Date</th><th>Description</th><th>Reference</th><th>Type</th><th>Amount</th><th>Balance</th></tr></thead>
+    <tbody>
+    {% for t in recent_txns %}
+    <tr>
+      <td class="txn-date-cell">{{ t.created_at|date:"d M Y" }}<br><span class="txn-time-sub">{{ t.created_at|time:"H:i" }}</span></td>
+      <td>{{ t.description }}</td>
+      <td class="txn-reference">{{ t.reference_number }}</td>
+      <td><span class="badge-custom badge-{{ t.transaction_type }}">{{ t.transaction_type|capfirst }}</span></td>
+      <td class="{% if t.transaction_type == 'credit' %}amount-credit{% else %}amount-debit{% endif %}">
+        {% if t.transaction_type == 'credit' %}+{% else %}–{% endif %}₹{{ t.amount }}
+      </td>
+      <td class="txn-balance">₹{{ t.balance_after }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state"><i class="fas fa-receipt"></i><p>No transactions yet.</p></div>
+  {% endif %}
+</div>
+
+{% else %}
+<div class="card-dark"><div class="empty-state"><i class="fas fa-university"></i><p>No bank account found. Please contact a branch employee.</p></div></div>
+{% endif %}
+
+{% elif role == 'admin' %}
+<div class="page-head">
+  <div><h1 class="page-title">Admin Dashboard</h1><p class="page-subtitle">System-wide overview</p></div>
+</div>
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-icon gold"><i class="fas fa-users"></i></div><div class="stat-value">{{ total_users }}</div><div class="stat-label">Total Users</div></div>
+  <div class="stat-card green"><div class="stat-icon green"><i class="fas fa-university"></i></div><div class="stat-value">{{ total_accounts }}</div><div class="stat-label">Accounts</div></div>
+  <div class="stat-card blue"><div class="stat-icon blue"><i class="fas fa-rupee-sign"></i></div><div class="stat-value stat-value-small" style="font-size:1.4rem;">₹{{ total_balance|floatformat:0 }}</div><div class="stat-label">Total Balance</div></div>
+  <div class="stat-card red"><div class="stat-icon red"><i class="fas fa-file-invoice"></i></div><div class="stat-value">{{ pending_loans }}</div><div class="stat-label">Pending Loans</div></div>
+</div>
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="card-dark">
+      <div class="card-dark-header"><i class="fas fa-clock-rotate-left"></i>Recent Transactions</div>
+      <table class="table-dark-custom">
+        <thead><tr><th>Account</th><th>Type</th><th>Amount</th><th>Date</th></tr></thead>
+        <tbody>{% for t in recent_txns %}
+        <tr>
+          <td class="txn-reference">{{ t.account.account_number }}</td>
+          <td><span class="badge-custom badge-{{ t.transaction_type }}">{{ t.transaction_type|capfirst }}</span></td>
+          <td class="{% if t.transaction_type == 'credit' %}amount-credit{% else %}amount-debit{% endif %}">₹{{ t.amount }}</td>
+          <td class="txn-date-cell">{{ t.created_at|date:"d M Y H:i" }}</td>
+        </tr>
+        {% empty %}<tr><td colspan="4"><div class="empty-state" style="padding:2rem;"><p>No transactions.</p></div></td></tr>
+        {% endfor %}</tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card-dark">
+      <div class="card-dark-header"><i class="fas fa-bolt"></i>Quick Actions</div>
+      <div class="card-dark-body admin-actions-list">
+        <a href="{% url 'all_accounts' %}" class="btn-outline-gold"><i class="fas fa-users"></i>Manage Accounts</a>
+        <a href="{% url 'deposit' %}" class="btn-outline-gold"><i class="fas fa-circle-plus"></i>Deposit Cash</a>
+        <a href="{% url 'withdraw' %}" class="btn-outline-gold"><i class="fas fa-circle-minus"></i>Withdraw Cash</a>
+        <a href="{% url 'all_loans' %}" class="btn-outline-gold"><i class="fas fa-file-invoice"></i>Review Loans</a>
+        <a href="/admin/" class="btn-outline-gold"><i class="fas fa-sliders"></i>Admin Panel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% elif role == 'employee' %}
+<div class="page-head"><div><h1 class="page-title">Employee Dashboard</h1><p class="page-subtitle">Manage operations</p></div></div>
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-icon gold"><i class="fas fa-university"></i></div><div class="stat-value">{{ total_accounts }}</div><div class="stat-label">Total Accounts</div></div>
+  <div class="stat-card red"><div class="stat-icon red"><i class="fas fa-file-invoice"></i></div><div class="stat-value">{{ pending_loans|length }}</div><div class="stat-label">Pending Loans</div></div>
+</div>
+
+<div class="card-dark mb-4">
+  <div class="card-dark-header"><i class="fas fa-bolt"></i>Quick Actions</div>
+  <div class="card-dark-body" style="display:flex;gap:1rem;flex-wrap:wrap;">
+    <a href="{% url 'all_accounts' %}" class="btn-outline-gold"><i class="fas fa-users"></i>Manage Accounts</a>
+    <a href="{% url 'deposit' %}" class="btn-outline-gold"><i class="fas fa-circle-plus"></i>Deposit Cash</a>
+    <a href="{% url 'withdraw' %}" class="btn-outline-gold"><i class="fas fa-circle-minus"></i>Withdraw Cash</a>
+    <a href="{% url 'all_loans' %}" class="btn-outline-gold"><i class="fas fa-file-invoice"></i>All Loans</a>
+  </div>
+</div>
+<div class="card-dark">
+  <div class="card-dark-header"><i class="fas fa-file-invoice-dollar"></i>Pending Loan Requests</div>
+  <table class="table-dark-custom">
+    <thead><tr><th>Customer</th><th>Loan Type</th><th>Amount</th><th>Date</th><th>Action</th></tr></thead>
+    <tbody>{% for loan in pending_loans %}
+    <tr>
+      <td><strong class="customer-name-bold">{{ loan.user.get_full_name }}</strong><br><small class="customer-email-sub">{{ loan.user.email }}</small></td>
+      <td>{{ loan.get_loan_type_display }}</td>
+      <td class="amount-credit" style="font-weight:600;">₹{{ loan.amount }}</td>
+      <td class="txn-date-cell">{{ loan.applied_at|date:"d M Y" }}</td>
+      <td><a href="{% url 'review_loan' loan.pk %}" class="btn-sm-dark"><i class="fas fa-eye"></i>Review</a></td>
+    </tr>
+    {% empty %}<tr><td colspan="5"><div class="empty-state empty-state-check" style="padding:2rem;"><i class="fas fa-check-circle"></i><p>No pending loans.</p></div></td></tr>
+    {% endfor %}</tbody>
+  </table>
+</div>
+{% endif %}
+{% endwith %}
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}EMI Calculator — Austere Bank{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/loans.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/banking.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/auth.css' %}" rel="stylesheet"/>
+<div class="page-head"><div><h1 class="page-title">EMI Calculator</h1><p class="page-subtitle">Plan your repayments before applying</p></div></div>
+<div class="row g-4 justify-content-center">
+  <div class="col-lg-5">
+    <div class="card-dark">
+      <div class="card-dark-header"><i class="fas fa-calculator"></i>Calculate</div>
+      <div class="card-dark-body">
+        <form method="post">{% csrf_token %}
+          {% for field in form %}
+          <div class="mb-3"><label class="form-label-custom">{{ field.label }}</label>
+          {{ field }}{% if field.errors %}<div class="field-error">{{ field.errors.0 }}</div>{% endif %}</div>
+          {% endfor %}
+          <button type="submit" class="btn-primary btn-full-width mt-4"><i class="fas fa-calculator me-2"></i>Calculate EMI</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% if result %}
+  <div class="col-lg-6">
+    <div class="card-dark mb-3">
+      <div class="loan-calc-result-header">
+        <div class="loan-calc-emi-label">Monthly EMI</div>
+        <div class="loan-calc-emi-val">₹{{ result.emi }}</div>
+        <div style="font-size:0.82rem;color:var(--silver);">for {{ result.tenure }} months @ {{ result.rate }}% p.a.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border-soft);">
+        <div class="loan-stat-item">
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--silver);margin-bottom:4px;">Total Payable</div>
+          <div class="loan-emi-val" style="color:var(--white); font-size: 1.3rem;">₹{{ result.total }}</div>
+        </div>
+        <div class="loan-stat-item">
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--silver);margin-bottom:4px;">Total Interest</div>
+          <div class="loan-emi-val" style="color:#f87171; font-size: 1.3rem;">₹{{ result.interest }}</div>
+        </div>
+      </div>
+    </div>
+    <!-- Visual bar -->
+    <div class="card-dark p-4">
+      <div style="margin-bottom:1rem;font-size:0.82rem;color:var(--silver);">Principal vs Interest breakdown</div>
+      <div class="loan-breakdown-bar">
+        <div style="width:{% widthratio result.principal result.total 100 %}%;background:linear-gradient(90deg,var(--gold),var(--gold-light));"></div>
+        <div style="flex:1;background:#f87171;opacity:0.7;"></div>
+      </div>
+      <div class="loan-breakdown-legend">
+        <span><span class="loan-breakdown-legend-dot" style="background:var(--gold);"></span>Principal ₹{{ result.principal }}</span>
+        <span><span class="loan-breakdown-legend-dot" style="background:#f87171;opacity:0.7;"></span>Interest ₹{{ result.interest }}</span>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

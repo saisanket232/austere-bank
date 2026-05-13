@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Deposit Cash — Austere Bank{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1 class="page-title">Deposit Cash</h1><p class="page-subtitle">Credit funds to a customer account</p></div></div>
+<div style="max-width:520px;">
+  <div class="card-dark">
+    <div class="card-dark-header"><i class="fas fa-circle-plus"></i>Cash Deposit</div>
+    <div class="card-dark-body">
+      <form method="post">{% csrf_token %}
+        <div class="mb-3"><label class="form-label-custom">Customer Account Number</label>
+        <input type="text" name="account_number" class="form-control" placeholder="12-digit account number" required></div>
+        {% for field in form %}
+        <div class="mb-3"><label class="form-label-custom">{{ field.label }}</label>
+        {{ field }}{% if field.errors %}<div style="color:#f87171;font-size:0.75rem;margin-top:4px;">{{ field.errors.0 }}</div>{% endif %}</div>
+        {% endfor %}
+        <button type="submit" class="btn-primary" style="width:100%;padding:13px;font-size:1rem;margin-top:0.5rem;"><i class="fas fa-circle-plus me-2"></i>Deposit Funds</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

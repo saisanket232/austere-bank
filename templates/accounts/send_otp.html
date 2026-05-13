@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}OTP Verification — Austere Bank{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/auth.css' %}" rel="stylesheet"/>
+<div class="otp-container">
+  <div class="auth-box">
+    <div class="card-dark">
+      <div class="otp-header">
+        <div class="otp-icon"><i class="fas fa-shield-halved"></i></div>
+        <div class="auth-title" style="font-size: 1.4rem;">OTP Verification</div>
+        <div class="auth-sub">Enter your phone number to receive a code</div>
+      </div>
+      <div class="card-dark-body">
+        <form method="post">{% csrf_token %}
+          <label class="form-label-custom">Phone Number</label>
+          <input type="text" name="phone" class="form-control mb-3" placeholder="e.g. 9876543210" required>
+          <button type="submit" class="auth-btn">Send OTP</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

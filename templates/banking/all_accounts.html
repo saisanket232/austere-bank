@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}All Accounts — Austere Bank{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1 class="page-title">All Accounts</h1><p class="page-subtitle">Manage customer accounts</p></div></div>
+<div class="card-dark">
+  <table class="table-dark-custom">
+    <thead><tr><th>Account Number</th><th>Customer</th><th>Type</th><th>Balance</th><th>Status</th><th>Created</th><th>Action</th></tr></thead>
+    <tbody>{% for acc in accounts %}
+    <tr>
+      <td style="font-family:monospace;font-size:0.82rem;">{{ acc.account_number }}</td>
+      <td><strong>{{ acc.user.get_full_name|default:acc.user.username }}</strong><br><small style="color:var(--silver);">{{ acc.user.email }}</small></td>
+      <td>{{ acc.get_account_type_display }}</td>
+      <td style="font-weight:700;color:var(--gold);">₹{{ acc.balance }}</td>
+      <td><span class="badge-custom badge-{{ acc.status }}">{{ acc.status|upper }}</span></td>
+      <td style="color:var(--silver);font-size:0.8rem;">{{ acc.created_at|date:"d M Y" }}</td>
+      <td>
+        <a href="{% url 'toggle_account' acc.pk %}" class="btn-sm-dark" style="{% if acc.status == 'active' %}color:#f87171;border-color:rgba(248,113,113,0.3);{% else %}color:#4ade80;border-color:rgba(74,222,128,0.3);{% endif %}">
+          {% if acc.status == 'active' %}<i class="fas fa-lock"></i> Freeze{% else %}<i class="fas fa-unlock"></i> Activate{% endif %}
+        </a>
+      </td>
+    </tr>
+    {% empty %}<tr><td colspan="7"><div class="empty-state" style="padding:2.5rem;"><p>No accounts found.</p></div></td></tr>
+    {% endfor %}</tbody>
+  </table>
+</div>
+{% endblock %}
