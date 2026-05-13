@@ -65,6 +65,14 @@ if os.environ.get('DATABASE_URL'):
             ssl_require=True
         )
     }
+elif os.environ.get('RENDER'):
+    # Fallback for Render build process if DATABASE_URL is missing
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 else:
     # Local development (MySQL)
     DATABASES = {
