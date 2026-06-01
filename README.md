@@ -4,24 +4,24 @@ A comprehensive Django-based digital banking platform that simulates real-world 
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Project Structure](#project-structure)
-- [Modules Overview](#modules-overview)
-- [Usage Guide](#usage-guide)
-- [Technical Stack](#technical-stack)
-- [Database Schema](#database-schema)
-- [Security Features](#security-features)
-- [Demo Credentials](#demo-credentials)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
+- [Features](#-features)
+- [Prerequisites](#-prerequisites)
+- [Installation](#-installation)
+- [Project Structure](#-project-structure)
+- [Modules Overview](#-modules-overview)
+- [Usage Guide](#-usage-guide)
+- [Technical Stack](#-technical-stack)
+- [Database Schema](#-database-schema)
+- [Security Features](#-security-features)
+- [Demo Credentials](#-demo-credentials)
+- [Troubleshooting](#-troubleshooting)
+- [Contributing](#-contributing)
 
 ---
 
-## ✨ Features
+## Features
 
 ### Core Banking
 - **Account Management**: Create, view, and manage customer bank accounts
@@ -46,7 +46,7 @@ A comprehensive Django-based digital banking platform that simulates real-world 
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 - **Python** 3.8 or higher
 - **Django** 3.2+
@@ -56,7 +56,7 @@ A comprehensive Django-based digital banking platform that simulates real-world 
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Step 1: Clone the Repository
 ```bash
@@ -99,7 +99,7 @@ The application will be accessible at `http://127.0.0.1:8000`
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 digital_bank/
@@ -153,7 +153,7 @@ digital_bank/
 
 ---
 
-## 🎯 Modules Overview
+## Modules Overview
 
 ### 1. Accounts Module (Authentication)
 **Purpose**: Manage user registration, authentication, and profile management.
@@ -214,7 +214,7 @@ digital_bank/
 
 ---
 
-## 👥 Usage Guide
+## Usage Guide
 
 ### For Customers
 1. **Register**: Create a new account at `/accounts/register/`
@@ -242,7 +242,7 @@ digital_bank/
 
 ---
 
-## 🛠️ Technical Stack
+## Technical Stack
 
 | Component | Technology |
 |-----------|-----------|
@@ -256,7 +256,7 @@ digital_bank/
 
 ---
 
-## 🗄️ Database Schema
+## Database Schema
 
 ### Key Models
 
@@ -276,7 +276,7 @@ digital_bank/
 
 ---
 
-## 🔒 Security Features
+## Security Features
 
 1. **Role-Based Access Control**
    - Customers can only access their own data
@@ -305,7 +305,7 @@ digital_bank/
 
 ---
 
-## 📝 Demo Credentials
+## Demo Credentials
 
 | Role | Username | Password | Purpose |
 |------|----------|----------|---------|
@@ -317,7 +317,7 @@ digital_bank/
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Issue: Database migration error
 ```bash
@@ -356,7 +356,7 @@ pip install -r requirements.txt --force-reinstall
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please follow these steps:
 
