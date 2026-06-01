@@ -13,7 +13,7 @@ def home(request):
     features = home_features()
     return render(request, "accounts/home.html", {"features": features})
 
-def register_view(request):
+def register_view2(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -40,7 +40,8 @@ def register_view(request):
             return redirect('dashboard')
     else:
         form = RegisterForm()
-    return render(request, 'accounts/register.html', {'form': form})
+        print('RegisterForm fields:', list(form.fields.keys()))
+    return render(request, 'accounts/register2.html', {'form': form})
 
 def login_view(request):
     if request.user.is_authenticated:

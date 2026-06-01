@@ -128,8 +128,8 @@ def loan_detail(request, pk):
     details = [
         ('Principal', f'₹{loan.amount}', 'var(--gold)'),
         ('Monthly EMI', f'₹{loan.emi_amount}', '#4ade80'),
-        ('Total Payable', f'₹{loan.total_payable}', 'var(--white)'),
-        ('Total Interest', f'₹{loan.total_interest}', '#f87171'),
+        ('Total Payable', f'₹{loan.total_payable()}', 'var(--white)'),
+        ('Total Interest', f'₹{loan.total_interest()}', '#f87171'),
         ('Interest Rate', f'{loan.interest_rate}% p.a.', 'var(--silver)'),
         ('Tenure', f'{loan.tenure_months} months', 'var(--silver)'),
     ]

@@ -3,22 +3,26 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from .models import UserProfile
 
-class RegisterForm(forms.ModelForm):
+class RegisterForm(forms.Form):
+    first_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
+    last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Last Name'}))
+    username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}))
-    phone = forms.CharField(max_length=15, required=True)
+    phone = forms.CharField(max_length=15, required=True, widget=forms.TextInput(attrs={'placeholder': 'Phone'}))
     role = forms.ChoiceField(choices=[('customer', 'Customer'), ('employee', 'Bank Employee')], required=True, initial='customer')
-    address = forms.CharField(widget=forms.Textarea(attrs={'rows': 3}), required=False)
+    company_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Company Password (for employees)'}), required=False)
+    address = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Address'}), required=False)
     date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=False)
-
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password']
 
     def clean(self):
         cleaned_data = super().clean()
         if cleaned_data.get('password') != cleaned_data.get('confirm_password'):
             raise forms.ValidationError("Passwords do not match.")
+        if cleaned_data.get('role') == 'employee':
+            if cleaned_data.get('company_password') != '94833':
+                raise forms.ValidationError("Invalid company password.")
         return cleaned_data
 
 class LoginForm(AuthenticationForm):
