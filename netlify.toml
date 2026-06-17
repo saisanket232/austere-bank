@@ -1,20 +1,34 @@
 [build]
-  command = "pip install -r requirements.txt && python manage.py collectstatic --noinput"
-  publish = "static"
-  functions = "functions"
+  command = "pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput"
+  publish = "staticfiles"
 
 [build.environment]
   PYTHON_VERSION = "3.14"
   DEBUG = "False"
 
+# Redirect API calls and Django routes to the backend
 [[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/app"
+  from = "/api/*"
+  to = "/.netlify/functions/django"
   status = 200
 
-[context.production]
-  command = "pip install -r requirements.txt && python manage.py collectstatic --noinput"
-  environment = { DEBUG = "False" }
+[[redirects]]
+  from = "/admin/*"
+  to = "/.netlify/functions/django"
+  status = 200
 
-[context.deploy-preview]
-  environment = { DEBUG = "True" }
+[[redirects]]
+  from = "/accounts/*"
+  to = "/.netlify/functions/django"
+  status = 200
+
+[[redirects]]
+  from = "/banking/*"
+  to = "/.netlify/functions/django"
+  status = 200
+
+[[redirects]]
+  from = "/loans/*"
+  to = "/.netlify/functions/django"
+  status = 200
+
