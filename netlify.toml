@@ -1,0 +1,20 @@
+[build]
+  command = "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+  publish = "static"
+  functions = "functions"
+
+[build.environment]
+  PYTHON_VERSION = "3.14"
+  DEBUG = "False"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/app"
+  status = 200
+
+[context.production]
+  command = "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+  environment = { DEBUG = "False" }
+
+[context.deploy-preview]
+  environment = { DEBUG = "True" }
